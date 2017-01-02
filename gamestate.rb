@@ -77,27 +77,42 @@ class GameState
 
     def get_player_choice
         print_text("Type stick or twist.")
-        set_player_choice(gets.chomp.downcase!)
+        choice = gets.chomp.downcase
+        set_player_choice(choice)
     end
 
-    def set_player_choice(choice) 
-        game.turn_handler(choice)
+    def set_player_choice(choice)
+        @game.turn_handler(choice)
         get_player_choice
     end
 
     def print_text(text) 
-        console.log(text)
+        puts text
     end
 
-    def updateDealerHand(text) 
+    def update_dealer_hand(text) 
         # setup.setDealerHand(text)
     end
 
     def end_game(player, dealer)
+        players = [player, dealer]
         show_hand(player)
         show_dealer_hand(dealer)
+        # binding.pry
+        # players.each do |endplayer|
+        #     if endplayer.winner
+        #         print_text("#{endplayer.name} wins!")
+        #     else
+        #         print_text("#{endplayer.name} loses!")
+        #     end
+        # end
         print_text("Game over!")
-        # System.exit(0)
-        # // setup.endGameScreen(player, dealer)
+        print_text("Play again? y / n")
+        choice = gets.chomp.downcase
+        if choice == "y"
+            Runner.setup
+        else
+            exit
+        end
     end
 end

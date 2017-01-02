@@ -2,11 +2,11 @@ require_relative('win_check')
 
 class SinglePlayerGameManager
   def initialize(game_state, all_players, dealer, player1)
-    @game_state = @game_state
+    @game_state = game_state
     @dealer = dealer
     @player = player1
     @all_players = all_players
-    @win_check = win_check.new(this, @game_state, @all_players)
+    @win_check = WinCheck.new(self, @game_state, @all_players)
   end
 
   def play
@@ -14,7 +14,7 @@ class SinglePlayerGameManager
     twist_check
   end
 
-  def initialDeal
+  def initial_deal
     @game_state.set_toast_text("Initial deal! All players receive two cards!")
     2.times do
       deal_all
@@ -36,8 +36,8 @@ class SinglePlayerGameManager
   end
 
   def twist_check
-    if @allPlayers.size() == 2
-      @game_state.set_main_text("You're up, " + @player.getName + ". Stick or twist?")
+    if @all_players.length == 2
+      @game_state.set_main_text("You're up, " + @player.name + ". Stick or twist?")
       @game_state.get_player_choice
     end
   end
@@ -46,9 +46,9 @@ class SinglePlayerGameManager
     @game_state.set_main_text("You  " + choice + "!")
     if choice == "twist"
       card = deal(@player)
-      @game_state.set_toast_text("You receive the " + card.get_name + ".")
+      @game_state.set_toast_text("You receive the " + card.name + ".")
       @game_state.show_hand(@player)
-      @game_state.set_toast_text(@player.get_name + ", your hand is now worth " + @win_check.calc_score(@player) + ".")
+      @game_state.set_toast_text("#{@player.name} , your hand is now worth #{@win_check.calc_score(@player)}.")
       @win_check.bust_check(@player)
     end
 
@@ -59,7 +59,7 @@ class SinglePlayerGameManager
   end
 
   def dealers_round()
-    if @win_check.calcScore(@dealer) <= 16
+    if @win_check.calc_score(@dealer) <= 16
       @game_state.set_toast_text("Des takes a card!")
       deal(@dealer)
       @win_check.bust_check(@dealer)
