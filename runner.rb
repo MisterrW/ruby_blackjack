@@ -15,8 +15,18 @@ class Runner
     hand: Hand.new(),
     deck: Deck.new()
     })
+
   dealer.fill_deck
   dealer.shuffle_cards
+
+  3.times do
+    dealer.receive_card(dealer.deal_card)
+  end
+
+  puts dealer.show_hand
+  puts dealer.return_card_to_back(dealer.return_card)
+  puts dealer.show_hand
+
   binding.pry
 
 end

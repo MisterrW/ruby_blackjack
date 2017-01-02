@@ -16,4 +16,8 @@ class Dealer
   def deal_card
     return @deck.deal_card
   end
+
+  def return_card_to_back(card)
+    @deck.return_card_to_back(card)
+  end
 end

@@ -33,6 +33,7 @@ class Deck
 
   def return_card_to_back(card)
     @cards.unshift(card)
+    return "#{card} returned!"
   end
 
 end
