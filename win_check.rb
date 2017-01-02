@@ -53,10 +53,10 @@ class WinCheck
     end
 
     if player.score == 21 && player.show_hand.length == 2
-      game_state.set_toast_text(player.name + " has a Pontoon! " + player.show_hand[0].name + " and " + player.show_hand[1].name + ".")
+      game_state.set_toast_text("#{player.name} has a Pontoon! #{player.show_hand[0].name}  and  #{player.show_hand[1].name}.")
       player.special_score = "pontoon"
     elsif player.score <= 21 && player.show_hand.length >= 5
-      game_state.set_toast_text(player.name + " has a 5 card trick!")
+      game_state.set_toast_text("#{player.name} has a 5 card trick!")
       player.special_score = "5 card trick"
     end
 
@@ -68,7 +68,7 @@ class WinCheck
       show_hand(player)
       player.special_score = "bust"
       @all_players.remove(player)
-      win_check
+     win_check
     end
   end
 
@@ -85,7 +85,7 @@ class WinCheck
     for player in all_players
       calc_score(player)
     end
-    win_check_special_score
+   win_check_special_score
     game_state.set_main_text(@outcome)
     endGame
   end
@@ -95,7 +95,7 @@ class WinCheck
   #         calcScore(player)
   #     end
 
-  #     winCheckSpecialScore
+  #    winCheckSpecialScore
   #     return @outcome
   #     //        @game_state.set_main_text(@outcome)
   #     //        endGame
@@ -109,55 +109,55 @@ class WinCheck
 
   def winCheckSpecialScore
     if @all_players.length == 2
-      if @all_players[0].special_score == "pontoon" && !@all_players[1].special_score== "pontoon"
-        @outcome = String.format(@all_players[0].name + " wins with pontoon!")
+      if @all_players[0].special_score == "pontoon" && !@all_players[1].special_score == "pontoon"
+        @outcome = "#{@all_players[0].name} wins with pontoon!"
         @all_players[0].setWinner(true)
         return
-      elsif @all_players[1].special_score == "pontoon" && !@all_players[0].special_score== "pontoon"
-        @outcome = String.format(@all_players[1].name + " wins with pontoon!")
+      elsif @all_players[1].special_score == "pontoon" && !@all_players[0].special_score == "pontoon"
+        @outcome = "#{@all_players[1].name} wins with pontoon!"
         @all_players[1].setWinner(true)
         return
-      elsif @all_players[0].special_score == "pontoon" && @all_players[1].special_score== "pontoon"
-        @outcome = String.format("Wow, two pontoons! Draw!")
+      elsif @all_players[0].special_score == "pontoon" && @all_players[1].special_score == "pontoon"
+        @outcome = "Wow, two pontoons! Draw!"
         return
       elsif @all_players[0].special_score == "5 card trick" && !@all_players[1].special_score == "5 card trick"
-        @outcome = String.format(@all_players[0].name + " wins with 5 card trick!")
+        @outcome = "#{@all_players[0].name} wins with 5 card trick!"
         @all_players[0].setWinner(true)
         return
       elsif @all_players[1].special_score == "5 card trick" && !@all_players[0].special_score == "5 card trick"
-        @outcome = String.format(@all_players[1].name + " wins with 5 card trick!")
+        @outcome = "#{@all_players[1].name} wins with 5 card trick!"
         @all_players[1].setWinner(true)
         return
       elsif @all_players[0].special_score== "5 card trick" && @all_players[1].special_score== "5 card trick"
-        @outcome = String.format("Wow, two 5 card tricks! Draw!")
+        @outcome = "Wow, two 5 card tricks! Draw!"
         return
       else
-        win_check_normal_score
+       win_check_normal_score
       end
-      win_check_normal_score
+     win_check_normal_score
     end
   end
 
   def win_check_normal_score
     if @all_players.length == 2
       if @all_players[0].get_score > @all_players[1].get_score
-        @outcome = String.format(@all_players[0].name + " wins with " + @all_players[0].get_score + "!")
+        @outcome = "#{@all_players[0].name} wins with #{@all_players[0].get_score}!"
         @all_players[0].setWinner(true)
         return
       elsif @all_players[0].get_score < @all_players[1].get_score
-        @outcome = String.format(@all_players[1].name + " wins with " + @all_players[1].get_score + "!")
+        @outcome = "#{@all_players[1].name} wins with #{@all_players[1].get_score}!"
         @all_players[1].setWinner(true)
         return
       else
-        @outcome = String.format("It's a draw!")
+        @outcome = "It's a draw!"
         return
       end
     elsif @all_players.length == 1
-      @outcome = String.format(@all_players[0].name + " wins with " + @all_players[0].get_score + "!")
+      @outcome = "#{@all_players[0].name} wins with #{@all_players[0].get_score}!"
       @all_players[0].setWinner(true)
       return
     elsif @all_players.length == 0
-      @outcome = String.format("Everyone's bust! Draw!")
+      @outcome = "Everyone's bust! Draw!"
       return
     end
   end
