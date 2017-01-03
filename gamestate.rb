@@ -98,14 +98,11 @@ class GameState
         players = [player, dealer]
         show_hand(player)
         show_dealer_hand(dealer)
-        # binding.pry
-        # players.each do |endplayer|
-        #     if endplayer.winner
-        #         print_text("#{endplayer.name} wins!")
-        #     else
-        #         print_text("#{endplayer.name} loses!")
-        #     end
-        # end
+        players.each do |endplayer|
+            if endplayer.winner
+                print_text("#{endplayer.name} wins!")
+            end
+        end
         print_text("Game over!")
         print_text("Play again? y / n")
         choice = gets.chomp.downcase

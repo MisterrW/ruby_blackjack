@@ -56,7 +56,7 @@ class WinCheck
       game_state.set_toast_text("#{player.name} has a Pontoon! #{player.show_hand[0].name}  and  #{player.show_hand[1].name}.")
       player.special_score = "pontoon"
     elsif player.score <= 21 && player.show_hand.length >= 5
-      game_state.set_toast_text("#{player.name} has a 5 card trick!")
+      @game_state.set_toast_text("#{player.name} has a 5 card trick!")
       player.special_score = "5 card trick"
     end
 
@@ -66,21 +66,12 @@ class WinCheck
   def bust_check(player)
     if calc_score(player) > 21
       show_hand(player)
+      @game_state.print_text("#{player.name} is bust with #{player.score}!")
       player.special_score = "bust"
       @all_players.delete(player)
-      binding.pry
-     win_check
+      win_check
     end
   end
-
-  # def fakeBustCheck(player)
-  #     if calc_score(player) > 21
-  #         show_hand(player)
-  #         player.special_score = "bust"
-  #         @all_players.remove(player)
-  #         fakeWinCheck
-  #     end
-  # end
 
   def win_check
     for player in @all_players
@@ -90,17 +81,6 @@ class WinCheck
     @game_state.set_main_text(@outcome)
     end_game
   end
-
-  # public String fakeWinCheck {
-  #     for ( player : all_(layers)
-  #         calcScore(player)
-  #     end
-
-  #    winCheckSpecialScore
-  #     return @outcome
-  #     //        @game_state.set_main_text(@outcome)
-  #     //        endGame
-  # end
 
   def end_game
     @game_state.end_game(@player, @dealer)
@@ -133,8 +113,8 @@ class WinCheck
       else
        win_check_normal_score
       end
-     win_check_normal_score
     end
+    win_check_normal_score
   end
 
   def win_check_normal_score
@@ -152,7 +132,6 @@ class WinCheck
         return
       end
     elsif @all_players.length == 1
-      binding.pry
       @outcome = "#{@all_players[0].name} wins with #{@all_players[0].score}!"
       @all_players[0].winner = true
       return
